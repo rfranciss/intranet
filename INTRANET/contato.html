@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pipeway Engenharia - Contato</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #4caf50;
+      --hover-color: #66bb6a;
+      --text-color: #ffffff;
+      --bg-mask: rgba(0, 0, 0, 0.2);
+      --menu-bg: transparent;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .video-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-mask);
+      z-index: -1;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 3;
+      flex-wrap: wrap;
+      background: transparent;
+      height: 70px;
+    }
+
+    .branding {
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .branding h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6em;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .branding .subtitle {
+      font-size: 1em;
+      margin-top: 5px;
+      opacity: 1;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+      color: #aaffaa;
+      font-weight: bold;
+      animation: pulsate 2s infinite alternate;
+    }
+
+    @keyframes pulsate {
+      0% {
+        text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+      }
+      100% {
+        text-shadow: 0 0 15px #4caf50, 0 0 30px #4caf50, 0 0 40px #4caf50;
+      }
+    }
+
+    /* Contador moderno */
+    .counter {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #aaffaa;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9em;
+      z-index: 4;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .counter i {
+      margin-right: 8px;
+      color: #4caf50;
+    }
+
+    .content {
+      display: flex;
+      height: 100%;
+      color: var(--text-color);
+      margin-left: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px;
+      background: transparent;
+      overflow-y: auto;
+      margin-top: 70px;
+      margin-bottom: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* Formulário de Contato - COMPACTO e CENTRALIZADO */
+    .contact-container {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 25px;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-title {
+      color: #aaffaa;
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      border-bottom: 1px solid rgba(76, 175, 80, 0.3);
+      padding-bottom: 12px;
+      font-size: 1.4em;
+    }
+
+    .contact-title i {
+      margin-right: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #aaffaa;
+      font-weight: bold;
+      font-size: 0.95em;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    /* Estilo para selects - FUNDO TRANSPARENTE */
+    .form-control option {
+      background: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #4caf50;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 20px auto 0;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .btn-submit:hover {
+      background: #66bb6a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+    }
+
+    .contact-info {
+      margin-top: 25px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 0.9em;
+    }
+
+    .contact-info h3 {
+      color: #aaffaa;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    .contact-info p {
+      margin: 4px 0;
+    }
+
+    /* Footer buttons */
+    .footer-buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 6px 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .footer-buttons button {
+      background-color: transparent;
+      color: #ffffff;
+      border: none;
+      padding: 6px 10px;
+      margin: 0 3px;
+      text-align: center;
+      font-size: 0.75em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+      border-radius: 5px 5px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 60px;
+    }
+
+    .footer-buttons button:hover {
+      background-color: rgba(76, 175, 80, 0.2);
+      border-bottom: 2px solid var(--primary-color);
+      color: #aaffaa;
+      text-shadow: 0 0 6px #aaffaa;
+    }
+
+    .footer-buttons button i {
+      margin-bottom: 2px;
+      font-size: 0.9em;
+      color: #4caf50;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .footer-buttons {
+        flex-wrap: wrap;
+        padding: 5px 0;
+      }
+      
+      .footer-buttons button {
+        padding: 5px 8px;
+        font-size: 0.7em;
+        min-width: 55px;
+        margin: 1px;
+      }
+      
+      .main {
+        padding: 15px;
+        margin-top: 70px;
+      }
+      
+      .branding h1 {
+        font-size: 1.4em;
+      }
+      
+      .branding .subtitle {
+        font-size: 0.9em;
+      }
+      
+      .counter {
+        top: 12px;
+        right: 15px;
+        font-size: 0.8em;
+        padding: 6px 12px;
+      }
+      
+      .contact-container {
+        padding: 20px;
+      }
+      
+      .contact-title {
+        font-size: 1.2em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-buttons button {
+        min-width: 50px;
+        padding: 4px 6px;
+        font-size: 0.65em;
+      }
+      
+      .footer-buttons button i {
+        font-size: 0.85em;
+      }
+      
+      .counter {
+        font-size: 0.7em;
+        padding: 5px 10px;
+      }
+      
+      .header {
+        padding: 8px 15px;
+        height: 60px;
+      }
+      
+      .branding h1 {
+        font-size: 1.2em;
+      }
+      
+      .branding .subtitle {
+        font-size: 0.8em;
+      }
+      
+      .main {
+        margin-top: 60px;
+        padding: 10px;
+      }
+      
+      .btn-submit {
+        width: 100%;
+        max-width: none;
+      }
+      
+      .contact-container {
+        padding: 15px;
+      }
+      
+      .form-group {
+        margin-bottom: 12px;
+      }
+      
+      .form-control {
+        padding: 8px 10px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop class="video-bg">
+    <source src="pipeway.mp4" type="video/mp4" />
+    Seu navegador não suporta vídeo de fundo.
+  </video>
+  <div class="video-mask"></div>
+
+  <div class="header">
+    <div class="branding">
+      <h1>PIPEWAY</h1>
+      <div class="subtitle">Intranet Corporativa</div>
+    </div>
+    
+    <!-- Contador moderno -->
+    <div class="counter">
+      <i class="fas fa-users"></i>
+      <span id="visitor-count">1245</span> Visitantes
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="main">
+      <div class="contact-container">
+        <h2 class="contact-title"><i class="fas fa-envelope"></i> Fale Conosco</h2>
+        
+               
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="department">Departamento</label>
+            <select id="department" class="form-control" required>
+              <option value="">Selecione seu departamento</option>
+              <option value="engenharia">Engenharia</option>
+              <option value="projetos">Projetos</option>
+              <option value="administrativo">Administrativo</option>
+              <option value="comercial">Comercial</option>
+              <option value="rh">Recursos Humanos</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          
+            </div>
+          
+          <div class="form-group">
+            <label for="message">Mensagem</label>
+            <textarea id="message" class="form-control" required></textarea>
+          </div>
+          
+          
+          <form action="https://formsubmit.co/renato.vieira@pipeway.com" method="POST">
+    // <input type="text" name="name" required>
+    // <input type="email" name="email" required>
+      <div class="form-group">
+            <label for="subject">Assunto</label>
+            <select id="subject" class="form-control" required>
+              <option value="">Selecione o assunto</option>
+              <option value="elogio">Elogio</option>
+              <option value="reclamacao">Reclamação</option>
+              <option value="sugestao">Sugestão</option>
+              <option value="duvida">Dúvida</option>
+              <option value="outro">Outro</option>
+            </select>
+     <button type="submit" class="btn-submit">Enviar Mensagem</button>
+     //<button type="submit">Send</button>
+        </form>
+        
+        <div class="contact-info">
+          <h3><i class="fas fa-info-circle"></i> Outras Formas de Contato</h3>
+          <p><i class="fas fa-phone"></i> Telefone: (21) 3214-1600</p>
+          <p><i class="fas fa-envelope"></i> E-mail: suporte@pipeway.com</p>
+          <p><i class="fas fa-clock"></i> Horário: Segunda a Sexta, 8h às 17h</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer buttons -->
+  <div class="footer-buttons">
+    <button onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Início</button>
+    <button><i class="fas fa-star"></i> Destaques</button>
+    <button><i class="fas fa-fire"></i> Mais Buscados</button>
+    <button><i class="fas fa-user"></i> Canal do Cliente</button>
+    <button><i class="fas fa-comments"></i> Ouvidoria</button>
+  </div>
+
+  <script>
+    // Contador de visitantes (incrementa a cada visita)
+    document.addEventListener('DOMContentLoaded', function() {
+      let count = localStorage.getItem('visitorCount');
+      if (count === null) {
+        count = 1245;
+      } else {
+        count = parseInt(count) + 1;
+      }
+      localStorage.setItem('visitorCount', count);
+      document.getElementById('visitor-count').textContent = count;
+      
+      // Configurar formulário
+      setupForm();
+    });
+    
+    // Configuração do formulário de contato
+    function setupForm() {
+      const contactForm = document.getElementById('contact-form');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Coletar dados do formulário
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          department: document.getElementById('department').value,
+          subject: document.getElementById('subject').value,
+          message: document.getElementById('message').value,
+          date: new Date().toLocaleString('pt-BR')
+        };
+        
+        // Exemplo: Salvar no localStorage
+        const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+        submissions.push(formData);
+        localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+        
+        // Feedback para o usuário
+        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        
+        // Limpar formulário
+        contactForm.reset();
+      });
+    }
+
+    // Adicionar funcionalidade aos botões do footer
+    document.querySelectorAll('.footer-buttons button').forEach(button => {
+      if (!button.onclick) {
+        button.addEventListener('click', function() {
+          const buttonText = this.textContent.trim();
+          let url = '';
+          
+          switch(buttonText) {
+            case 'Destaques':
+              url = 'https://exemplo.com/destaques';
+              break;
+            case 'Mais Buscados':
+              url = 'https://exemplo.com/mais-buscados';
+              break;
+            case 'Canal do Cliente':
+              url = 'https://exemplo.com/canal-cliente';
+              break;
+            case 'Ouvidoria':
+              url = 'https://exemplo.com/ouvidoria';
+              break;
+          }
+          
+          if (url) {
+            window.open(url, '_blank');
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
