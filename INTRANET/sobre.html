@@ -458,18 +458,13 @@
 <body>
 
   <video autoplay muted loop class="video-bg">
-    <source src="pipeway.mp4" type="video/mp4" />
+    <source src="mapa.mp4" type="video/mp4" />
     Seu navegador não suporta vídeo de fundo.
   </video>
   <div class="video-mask"></div>
 
-  <!-- Modal de Agradecimento -->
-  <div class="thank-you-modal" id="thankYouModal">
-    <div class="modal-content">
-      <h2><i class="fas fa-check-circle"></i> Obrigado!</h2>
-      <p>Sua mensagem foi enviada com sucesso. Agradecemos seu Contato!</p>
-      <button class="modal-btn" onclick="redirectToHome()">Voltar à Página Inicial</button>
-    </div>
+
+
   </div>
 
   <div class="header">
@@ -485,75 +480,10 @@
     </div>
   </div>
 
-  <div class="content">
-    <div class="main">
-      <div class="contact-container">
-        <h2 class="contact-title"><i class="fas fa-envelope"></i> Fale Conosco</h2>
+          
+            
         
-        <!-- FORMULÁRIO COM FORMSUBMIT - CORRIGIDO COM method="POST" -->
-        <form id="contactForm" action="https://formsubmit.co/renato.vieira@pipeway.com" method="POST">
-          <!-- Configurações do FormSubmit -->
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="#">
-          <input type="hidden" name="_subject" value="Novo contato da Intranet Pipeway">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_autoresponse" value="Obrigado por entrar em contato com a Pipeway Engenharia! Sua mensagem foi recebida e retornaremos em breve.">
-          
-          <!-- Campos do formulário -->
-          <div class="form-group">
-            <label for="name">Nome Completo</label>
-            <input type="text" id="name" name="name" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="department">Departamento</label>
-            <select id="department" name="department" class="form-control" required>
-              <option value="">Selecione seu departamento</option>
-              <option value="engenharia">Engenharia</option>
-              <option value="projetos">Projetos</option>
-              <option value="administrativo">Administrativo</option>
-              <option value="comercial">Comercial</option>
-              <option value="rh">Recursos Humanos</option>
-              <option value="outro">Outro</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="subject">Assunto</label>
-            <select id="subject" name="subject" class="form-control" required>
-              <option value="">Selecione o assunto</option>
-              <option value="elogio">Elogio</option>
-              <option value="reclamacao">Reclamação</option>
-              <option value="sugestao">Sugestão</option>
-              <option value="duvida">Dúvida</option>
-              <option value="outro">Outro</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="message">Mensagem</label>
-            <textarea id="message" name="message" class="form-control" required></textarea>
-          </div>
-          
-          <button type="submit" class="btn-submit">Enviar Mensagem</button>
-        </form>
-        
-        <div class="contact-info">
-          <h3><i class="fas fa-info-circle"></i> Outras Formas de Contato</h3>
-          <p><i class="fas fa-phone"></i> Telefone: (21) 3214-1600</p>
-          <p><i class="fas fa-envelope"></i> E-mail: suporte@pipeway.com.br</p>
-          <p><i class="fas fa-clock"></i> Horário: Segunda a Sexta, 8h às 17h</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-   <!-- Footer buttons - MODIFICADOS conforme solicitado -->
+    <!-- Footer buttons - MODIFICADOS conforme solicitado -->
   <div class="footer-buttons">
     <!-- BOTÃO HOME ADICIONADO AQUI - PRIMEIRO DA LISTA -->
     <button onclick="window.location.href='home.html'">
@@ -575,6 +505,10 @@
     <button onclick="window.open('http://10.10.10.5/pw', '_blank')">
       <i class="fas fa-key"></i> Minha PW
     </button>
+    </button>
+    <button onclick="window.open('contato.html', '_blank')">
+      <i class="fas fa-envelope"></i> Fale Conosco
+    </button
   </div>
 
   <script>
