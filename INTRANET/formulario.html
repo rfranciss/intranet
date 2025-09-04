@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pipeway Engenharia - Inventário de Insumos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #4caf50;
+      --hover-color: #66bb6a;
+      --text-color: #ffffff;
+      --bg-mask: rgba(0, 0, 0, 0.2);
+      --menu-bg: transparent;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Tahoma, sans-serif;
+      overflow: auto;
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .video-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-mask);
+      z-index: -1;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 3;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.5);
+      height: 60px;
+      backdrop-filter: blur(5px);
+    }
+
+    .branding {
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color);
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .branding h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4em;
+      margin: 0;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .branding .subtitle {
+      font-size: 0.9em;
+      margin-top: 3px;
+      opacity: 1;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+      color: #aaffaa;
+      font-weight: bold;
+      animation: pulsate 2s infinite alternate;
+    }
+
+    @keyframes pulsate {
+      0% {
+        text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+      }
+      100% {
+        text-shadow: 0 0 15px #4caf50, 0 0 30px #4caf50, 0 0 40px #4caf50;
+      }
+    }
+
+    /* Menu Hamburger para Mobile */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .menu-toggle span {
+      width: 100%;
+      height: 3px;
+      background-color: #4caf50;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Widget de formulário em carrossel - POSICIONADO NO CANTO ESQUERDO */
+    .widget-container {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55%;
+      max-width: 650px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      box-shadow: 0 0 25px rgba(76, 175, 80, 0.4);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      overflow: hidden;
+      max-height: 85vh;
+    }
+
+    .widget-title {
+      color: #aaffaa;
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      border-bottom: 1px solid rgba(76, 175, 80, 0.3);
+      padding-bottom: 10px;
+      font-size: 1.2em;
+    }
+
+    .widget-title i {
+      margin-right: 8px;
+    }
+
+    .carousel-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.95em;
+      font-family: Tahoma, sans-serif;
+      text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 32px #fff;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95em;
+      font-family: Tahoma, sans-serif;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #4caf50;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .carousel-btn {
+      background: rgba(76, 175, 80, 0.3);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+
+    .carousel-btn:hover {
+      background: rgba(76, 175, 80, 0.5);
+    }
+
+    .carousel-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .carousel-btn i {
+      margin: 0 5px;
+    }
+
+    .progress-indicators {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(76, 175, 80, 0.3);
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+
+    .progress-dot.active {
+      background: #4caf50;
+      transform: scale(1.3);
+    }
+
+    .btn-submit {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 20px auto 10px;
+      width: 100%;
+      max-width: 300px;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .btn-submit:hover {
+      background: #66bb6a;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    /* Modal de agradecimento */
+    .thank-you-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      border: 2px solid #4caf50;
+      box-shadow: 0 0 25px rgba(76, 175, 80, 0.5);
+      max-width: 90%;
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  font-family: Tahoma, sans-serif;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  text-transform: uppercase;
+
+    .modal-content p {
+      color: #ffffff;
+      margin-bottom: 20px;
+      font-family: Tahoma, sans-serif;
+      font-size: 0.95em;
+    }
+
+    .modal-btn {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .modal-btn:hover {
+      background: #66bb6a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    }
+
+    /* Saudação no rodapé */
+    .footer-greeting {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 0;
+      z-index: 2;
+      text-align: center;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .greeting-text {
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1em;
+      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #4caf50;
+      margin: 0;
+    }
+
+    /* Menu lateral para mobile */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 5;
+      transition: right 0.3s ease;
+      padding: 60px 20px 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .mobile-menu.open {
+      right: 0;
+    }
+
+    .mobile-menu button {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      padding: 12px 15px;
+      margin: 10px 0;
+      text-align: left;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-menu button:hover {
+      background-color: rgba(76, 175, 80, 0.2);
+      color: #aaffaa;
+      text-shadow: 0 0 6px #aaffaa;
+    }
+
+    .mobile-menu button i {
+      margin-right: 10px;
+      font-size: 1em;
+      color: #4caf50;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 4;
+      display: none;
+    }
+
+    /* Responsividade */
+    @media (max-width: 1200px) {
+      .widget-container {
+        width: 65%;
+        left: 15px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .widget-container {
+        width: 75%;
+        left: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 8px 15px;
+        height: 55px;
+      }
+      
+      .branding h1 {
+        font-size: 1.2em;
+      }
+      
+      .branding .subtitle {
+        font-size: 0.8em;
+      }
+      
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .widget-container {
+        position: relative;
+        margin: 70px auto 60px;
+        width: 90%;
+        left: 0;
+        top: 0;
+        transform: none;
+      }
+      
+      .widget-title {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+      }
+      
+      .form-control {
+        padding: 10px 12px;
+        font-size: 0.9em;
+      }
+      
+      .carousel-btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+      }
+      
+      .greeting-text {
+        font-size: 1em;
+      }
+      
+      .btn-submit {
+        padding: 10px 15px;
+        font-size: 0.95em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .branding h1 {
+        font-size: 1.1em;
+      }
+      
+      .branding .subtitle {
+        font-size: 0.75em;
+      }
+      
+      .widget-container {
+        padding: 12px;
+        width: 95%;
+      }
+      
+      .widget-title {
+        font-size: 1em;
+      }
+      
+      .form-group {
+        margin-bottom: 12px;
+      }
+      
+      .form-group label {
+        font-size: 0.9em;
+      }
+      
+      .form-control {
+        padding: 8px 10px;
+        font-size: 0.85em;
+      }
+
+      .modal-content {
+        padding: 20px 15px;
+      }
+      
+      .modal-content h2 {
+        font-size: 1.2em;
+      }
+      
+      .modal-content p {
+        font-size: 0.9em;
+      }
+      
+      .greeting-text {
+        font-size: 0.9em;
+        padding: 8px 0;
+      }
+      
+      .carousel-btn {
+        padding: 7px 10px;
+        font-size: 0.8em;
+      }
+    }
+
+    /* Melhorias de acessibilidade para mobile */
+    @media (max-width: 768px) {
+      input, button, select, textarea {
+        font-size: 16px; /* Previne zoom no iOS */
+      }
+      
+      .carousel-btn {
+        min-height: 44px; /* Tamanho mínimo de toque */
+        min-width: 44px;
+      }
+      
+      .btn-submit {
+        min-height: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop class="video-bg">
+    <source src="fundo.mp4" type="video/mp4" />
+    Seu navegador não suporta vídeo de fundo.
+  </video>
+  <div class="video-mask"></div>
+
+  <!-- Modal de Agradecimento -->
+  <div class="thank-you-modal" id="thankYouModal">
+    <div class="modal-content">
+      <h2><i class="fas fa-check-circle"></i> Obrigado!</h2>
+      <p>Seu inventário foi registrado com sucesso!</p>
+      <button class="modal-btn" onclick="redirectToHome()">Suporte agradece pelos dados enviados!!!</button>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="branding">
+      <h1>PIPEWAY</h1>
+      <div class="subtitle">Inventário de Insumos</div>
+    </div>
+    
+    <!-- Menu Hamburger para Mobile -->
+    <button class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Menu lateral para mobile -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="window.location.href='home.html'">
+      <i class="fas fa-home"></i> Home
+    </button>
+    
+    <button onclick="window.open('http://10.10.10.5/tel/', '_blank')">
+      <i class="fas fa-phone"></i> Lista Telefônica
+    </button>
+    
+    <button>
+      <i class="fas fa-headset"></i> Suporte TI
+    </button>
+    
+    <button onclick="window.open('http://10.10.10.105/pcp2110/web/login#/pcp_apontamentosdeproducoes?usuario=8498ff13-9f7b-42e1-bff0-9589ae20af14&modofiltro=OR')">
+      <i class="fas fa-user-tie"></i> PCP NASAJON
+    </button>
+    
+    <button onclick="window.open('http://10.10.10.5/pw', '_blank')">
+      <i class="fas fa-key"></i> Minha PW
+    </button>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Widget de formulário em carrossel - POSICIONADO NO CANTO ESQUERDO -->
+  <div class="widget-container">
+    <h2 class="widget-title"><i class="fas fa-laptop"></i> Inventário de Insumos</h2>
+    
+    <div class="carousel-container">
+      <form id="inventoryForm" action="https://formsubmit.co/suporte@pipeway.com" method="POST" class="carousel-slides">
+        <!-- Configurações do FormSubmit -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="#">
+        <input type="hidden" name="_subject" value="Novo Inventário de Insumos - Pipeway">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_autoresponse" value="Obrigado por preencher o inventário de insumos da Pipeway Engenharia! Seus dados foram registrados com sucesso.">
+        
+        <!-- Slide 1: Informações básicas -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="name"><i class="fas fa-user"></i> Nome Completo</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+          </div>
+        </div>
+        
+        <!-- Slide 2: Computador -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="computer_patrimony"><i class="fas fa-desktop"></i> Se você utiliza um notebook ou Desktop, nos informe patrimônio ou nome da sua máquina?</label>
+       <input type="text" id="computer_patrimony" name="computer_patrimony" class="form-control" 
+         placeholder="PWRJDXXX (DESKTOP) ou PWRJLXXX (LAPTOP)">
+          </div>
+        </div>
+        
+        <!-- Slide 3: Monitor -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="monitor_patrimony"><i class="fas fa-tv"></i> Se você utilizes Monitor(es), nos informe patrimônio deste?</label>
+         <input type="text" id="monitor_patrimony" name="monitor_patrimony" class="form-control" 
+           placeholder="PWRJMXXXX">
+          </div>
+        </div>
+        
+        <!-- Slide 4: Mouse -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="mouse_insumo"><i class="fas fa-mouse"></i> Se você utiliza Mouse, nos informe número de insumo? (se for kit põe mesmo nr)</label>
+         <input type="text" id="mouse_insumo" name="mouse_insumo" class="form-control" 
+           placeholder="Comente os números">
+          </div>
+        </div>
+        
+        <!-- Slide 5: Teclado -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="keyboard_insumo"><i class="fas fa-keyboard"></i> Se você utiliza Teclado, nos informe número de insumo? (se for kit põe mesmo nr)</label>
+         <input type="text" id="keyboard_insumo" name="keyboard_insumo" class="form-control" 
+           placeholder="Comente os números">
+          </div>
+        </div>
+        
+        <!-- Slide 6: Headset -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="headset_insumo"><i class="fas fa-headphones"></i> Se você utiliza Headset, nos informe número de insumo?</label>
+         <input type="text" id="headset_insumo" name="headset_insumo" class="form-control" 
+           placeholder="Comente os números">
+          </div>
+        </div>
+        
+        <!-- Slide 7: Webcam -->
+        <div class="carousel-slide">
+          <div class="form-group">
+            <label for="webcam_insumo"><i class="fas fa-video"></i> Se você utiliza Webcam, nos informe número de insumo?</label>
+         <input type="text" id="webcam_insumo" name="webcam_insumo" class="form-control" 
+           placeholder="Comente os números">
+          </div>
+        </div>
+        
+        <!-- Slide 8: Finalização -->
+        <div class="carousel-slide">
+          <div style="text-align: center; padding: 15px 0;">
+            <i class="fas fa-check-circle" style="font-size: 2.5em; color: #4caf50; margin-bottom: 10px;"></i>
+            <h3 style="color: #aaffaa; margin-bottom: 10px; font-family: Tahoma, sans-serif; font-size: 1.1em;">Verificação Concluída</h3>
+            <p style="color: #ffffff; font-family: Tahoma, sans-serif; font-size: 0.9em;">Revise os dados informados e clique em "Enviar" para finalizar o inventário.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <div class="progress-indicators" id="progressIndicators">
+      <!-- Os indicadores serão gerados via JavaScript -->
+    </div>
+    
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="prevBtn" disabled>
+        <i class="fas fa-chevron-left"></i> Anterior
+      </button>
+      <button class="carousel-btn" id="nextBtn">
+        Próximo <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <!-- Botão de envio ABAIXO do widget -->
+    <button type="button" class="btn-submit" id="submitBtn" style="display: none;">
+      <i class="fas fa-paper-plane"></i> Enviar Inventário
+    </button>
+  </div>
+
+  <!-- Saudação no rodapé -->
+  <div class="footer-greeting">
+    <p class="greeting-text" id="greeting"></p>
+  </div>
+
+  <script>
+    // Forçar caixa alta nos campos do formulário
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.form-control').forEach(function(input) {
+        input.addEventListener('input', function() {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar o carrossel do formulário
+      setupCarousel();
+      
+      // Configurar saudação de acordo com o horário
+      setupGreeting();
+      
+      // Configurar menu mobile
+      setupMobileMenu();
+    });
+
+    // Configurar saudação de acordo com o horário
+    function setupGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "";
+      
+      if (hour >= 5 && hour < 12) {
+        greeting = "Bom Dia!";
+      } else if (hour >= 12 && hour < 18) {
+        greeting = "Boa Tarde!";
+      } else {
+        greeting = "Boa Noite!";
+      }
+      
+      document.getElementById('greeting').textContent = greeting;
+    }
+
+    // Configurar menu mobile
+    function setupMobileMenu() {
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuOverlay = document.getElementById('menuOverlay');
+      
+      menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('open');
+        menuOverlay.style.display = mobileMenu.classList.contains('open') ? 'block' : 'none';
+      });
+      
+      menuOverlay.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        menuOverlay.style.display = 'none';
+      });
+    }
+
+    // Configuração do carrossel do formulário
+    function setupCarousel() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const slidesContainer = document.querySelector('.carousel-slides');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const progressIndicators = document.getElementById('progressIndicators');
+      let currentSlide = 0;
+      
+      // Criar indicadores de progresso
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('progress-dot');
+        if (i === 0) dot.classList.add('active');
+        progressIndicators.appendChild(dot);
+      }
+      
+      const dots = document.querySelectorAll('.progress-dot');
+      
+      // Atualizar a exibição do carrossel
+      function updateCarousel() {
+        slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Atualizar estado dos botões
+        prevBtn.disabled = currentSlide === 0;
+        
+        if (currentSlide === slides.length - 1) {
+          nextBtn.style.display = 'none';
+          submitBtn.style.display = 'block';
+        } else {
+          nextBtn.style.display = 'flex';
+          submitBtn.style.display = 'none';
+        }
+        
+        // Atualizar indicadores
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentSlide);
+        });
+      }
+      
+      // Event listeners para os botões de navegação
+      nextBtn.addEventListener('click', () => {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          updateCarousel();
+        }
+      });
+      
+      prevBtn.addEventListener('click', () => {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateCarousel();
+        }
+      });
+      
+      // Event listener para o botão de envio
+      submitBtn.addEventListener('click', () => {
+        // Validar formulário antes de enviar
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        
+        if (!name || !email) {
+          alert('Por favor, preencha pelo menos seu nome e e-mail antes de enviar.');
+          currentSlide = 0;
+          updateCarousel();
+          return;
+        }
+        
+        // Enviar formulário
+        document.getElementById('inventoryForm').submit();
+        
+        // Mostrar mensagem de agradecimento
+        showThankYouMessage();
+      });
+      
+      // Inicializar carrossel
+      updateCarousel();
+      
+      // Adicionar suporte a gestos de swipe
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      slidesContainer.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+      
+      slidesContainer.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+      
+      function handleSwipe() {
+        const minSwipeDistance = 50;
+        
+        if (touchEndX < touchStartX && touchStartX - touchEndX > minSwipeDistance) {
+          // Swipe para a esquerda (próximo)
+          if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            updateCarousel();
+          }
+        } 
+        
+        if (touchEndX > touchStartX && touchEndX - touchStartX > minSwipeDistance) {
+          // Swipe para a direita (anterior)
+          if (currentSlide > 0) {
+            currentSlide--;
+            updateCarousel();
+          }
+        }
+      }
+    }
+
+    // Mostrar mensagem de agradecimento
+    function showThankYouMessage() {
+      const modal = document.getElementById('thankYouModal');
+      modal.style.display = 'flex';
+      // Modal permanece até o usuário clicar no botão
+    }
+
+    // Redirecionar para a página inicial
+    function redirectToHome() {
+      window.close();
+    }
+  </script>
+
+</body>
+</html>

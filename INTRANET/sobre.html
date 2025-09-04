@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pipeway Engenharia - Contato</title>
+  <title>Pipeway Engenharia - Sobre Nós</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -21,7 +21,7 @@
       padding: 0;
       height: 100%;
       font-family: 'Roboto', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .video-bg {
@@ -98,9 +98,6 @@
       }
     }
 
-    /* BOTÃO HOME - REMOVIDO DO HEADER */
-
-    /* Contador moderno */
     .counter {
       position: fixed;
       top: 15px;
@@ -133,124 +130,98 @@
       align-items: center;
     }
 
-    .main {
-      flex: 1;
-      padding: 20px;
-      background: transparent;
-      overflow-y: auto;
-      margin-top: 70px;
-      margin-bottom: 60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 600px;
-    }
+  /* .main já está definido, removido para evitar duplicidade */
 
-    /* Formulário de Contato - COMPACTO e CENTRALIZADO */
-    .contact-container {
+    /* Container da página institucional */
+    .about-container {
       width: 100%;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 12px;
-      padding: 25px;
+      padding: 30px;
       border: 1px solid rgba(76, 175, 80, 0.3);
       box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
       backdrop-filter: blur(10px);
+      margin-bottom: 30px;
+      position: relative;
     }
 
-    .contact-title {
-      color: #aaffaa;
-      text-align: center;
-      margin-bottom: 20px;
-      font-family: 'Orbitron', sans-serif;
-      border-bottom: 1px solid rgba(76, 175, 80, 0.3);
-      padding-bottom: 12px;
-      font-size: 1.4em;
-    }
+  /* .section-title já está definido, removido para evitar duplicidade */
 
-    .contact-title i {
+    .section-title i {
       margin-right: 10px;
     }
 
-    .form-group {
-      margin-bottom: 15px;
+    /* Widget de seção */
+    .section-widget {
+      background: rgba(76, 175, 80, 0.1);
+      border-radius: 10px;
+      padding: 25px;
+      border: 1px solid rgba(76, 175, 80, 0.2);
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
     }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      color: #aaffaa;
-      font-weight: bold;
-      font-size: 0.95em;
+    .section-widget:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
-    .form-control {
+    .section-content {
+      line-height: 1.6;
+      text-align: justify;
+      margin: 0 auto;
+      max-width: 800px;
       width: 100%;
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(76, 175, 80, 0.3);
-      border-radius: 6px;
-      color: #ffffff;
-      font-size: 0.95em;
-      transition: all 0.3s ease;
       box-sizing: border-box;
     }
 
-    /* Estilo para selects - FUNDO TRANSPARENTE */
-    .form-control option {
-      background: rgba(0, 0, 0, 0.8);
-      color: #ffffff;
+    .section-content ul {
+      padding-left: 20px;
+      margin-bottom: 15px;
     }
 
-    .form-control:focus {
-      outline: none;
-      border-color: #4caf50;
-      box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
-      background: rgba(255, 255, 255, 0.15);
+    .section-content li {
+      margin-bottom: 8px;
+      line-height: 1.5;
     }
 
-    textarea.form-control {
-      min-height: 100px;
-      resize: vertical;
+    /* Navegação entre seções */
+    .section-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
     }
 
-    .btn-submit {
-      background: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: block;
-      margin: 20px auto 0;
-      width: 100%;
-      max-width: 200px;
-    }
-
-    .btn-submit:hover {
-      background: #66bb6a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
-    }
-
-    .contact-info {
-      margin-top: 25px;
-      text-align: center;
-      color: #ffffff;
-      font-size: 0.9em;
-    }
-
-    .contact-info h3 {
+    .nav-button {
+      background: rgba(76, 175, 80, 0.3);
       color: #aaffaa;
-      margin-bottom: 10px;
-      font-size: 1.1em;
+      border: 1px solid rgba(76, 175, 80, 0.5);
+      padding: 12px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
     }
 
-    .contact-info p {
-      margin: 4px 0;
+    background: transparent;
+      background: rgba(76, 175, 80, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    
+
+    .nav-button i {
+      margin: 0 8px;
+    }
+
+    .section-indicator {
+      color: #aaffaa;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1em;
     }
 
     /* Footer buttons */
@@ -259,7 +230,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.6);
+  background: transparent;
       padding: 6px 0;
       z-index: 2;
       display: flex;
@@ -300,59 +271,6 @@
       color: #4caf50;
     }
 
-    /* Modal de agradecimento */
-    .thank-you-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      border: 2px solid #4caf50;
-      box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
-      max-width: 400px;
-      width: 80%;
-    }
-
-    .modal-content h2 {
-      color: #aaffaa;
-      margin-bottom: 20px;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .modal-content p {
-      color: #ffffff;
-      margin-bottom: 25px;
-    }
-
-    .modal-btn {
-      background: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .modal-btn:hover {
-      background: #66bb6a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
-    }
-
     /* Responsividade */
     @media (max-width: 768px) {
       .footer-buttons {
@@ -387,12 +305,17 @@
         padding: 6px 12px;
       }
       
-      .contact-container {
+      .about-container {
         padding: 20px;
       }
       
-      .contact-title {
-        font-size: 1.2em;
+      .section-title {
+        font-size: 1.5em;
+      }
+      
+      .nav-button {
+        padding: 10px 15px;
+        font-size: 0.9em;
       }
     }
 
@@ -430,28 +353,37 @@
         padding: 10px;
       }
       
-      .btn-submit {
-        width: 100%;
-        max-width: none;
-      }
-      
-      .contact-container {
+      .about-container {
         padding: 15px;
       }
       
-      .form-group {
-        margin-bottom: 12px;
+      .section-title {
+        font-size: 1.3em;
       }
       
-      .form-control {
-        padding: 8px 10px;
+      .nav-button {
+        padding: 8px 12px;
+        font-size: 0.8em;
+      }
+      
+      .section-indicator {
         font-size: 0.9em;
       }
+    }
 
-      .modal-content {
-        padding: 20px;
-        width: 90%;
-      }
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .section-content {
+      text-align: justify;
+      margin: 0 auto;
+      max-width: 800px;
+      width: 100%;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -463,29 +395,115 @@
   </video>
   <div class="video-mask"></div>
 
-
-
-  </div>
-
   <div class="header">
     <div class="branding">
       <h1>PIPEWAY</h1>
       <div class="subtitle">Intranet Corporativa</div>
     </div>
     
-    <!-- Contador moderno -->
     <div class="counter">
       <i class="fas fa-users"></i>
       <span id="visitor-count">1245</span> Visitantes
     </div>
   </div>
 
-          
-            
+  <div class="content">
+    <div class="main">
+      <div class="about-container">
+        <h1 class="section-title"><i class="fas fa-building"></i> Pipeway Engenharia</h1>
         
-    <!-- Footer buttons - MODIFICADOS conforme solicitado -->
+        <!-- Seção 1: Origem e Fundação -->
+        <div class="section-widget" id="section1">
+          <h2 class="section-title"><i class="fas fa-rocket"></i> Origem e Fundação</h2>
+          <div class="section-content">
+            <p>A PipeWay Engenharia nasceu de uma parceria visionária entre a PETROBRAS, através do CENPES, e a PUC-Rio, via CETUC, no final da década de 1980. Essa colaboração resultou no desenvolvimento de tecnologias pioneiras para inspeção de dutos por meio de ferramentas magnéticas.</p>
+          </div>
+        </div>
+        
+        <!-- Seção 2: Base Tecnológica -->
+        <div class="section-widget" id="section2" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Base Tecnológica e Inovação</h2>
+          <div class="section-content">
+            <p>Fundada em 1998 como empresa de base tecnológica 100% brasileira, a PipeWay obteve licença para explorar tecnologia de inspeção geométrica desenvolvida na PUC-Rio. Com apoio da FINEP e pagamento de royalties às instituições parceiras, a empresa transformou pesquisa acadêmica em soluções práticas para o mercado.</p>
+          </div>
+        </div>
+        
+        <!-- Seção 3: Crescimento -->
+        <div class="section-widget" id="section3" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-trophy"></i> Crescimento e Reconhecimento</h2>
+          <div class="section-content">
+            <p>De uma pequena incubadora na PUC-Rio com 30m², a PipeWay expandiu para uma sede de 1.500m² e aproximadamente 40 colaboradores. A empresa conquistou importantes prêmios nacionais de inovação tecnológica, incluindo múltiplos prêmios FINEP e o título de Empreendedor do Ano pela Endeavor.</p>
+          </div>
+        </div>
+        
+        <!-- Seção 4: Especialização -->
+        <div class="section-widget" id="section4" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-cogs"></i> Especialização e Serviços</h2>
+          <div class="section-content">
+            <p>Especializada em inspeção de dutos utilizando "pigs" (ferramentas de inspeção), a PipeWay oferece serviços de:</p>
+            <ul>
+              <li>Inspeção geométrica para identificação de anomalias</li>
+              <li>Medição de corrosão e perda de espessura</li>
+              <li>Limpeza de dutos convencional e magnética</li>
+              <li>Desenvolvimento do GIP - tecnologia para dutos não-pigáveis</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Seção 5: Atuação Internacional -->
+        <div class="section-widget" id="section5" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-globe-americas"></i> Atuação Internacional</h2>
+          <div class="section-content">
+            <p>Com atuação em diversos países da América Latina (Argentina, Bolívia, Colômbia e Venezuela) e representação de empresas de alta tecnologia da Noruega e EUA, a PipeWay consolidou-se como referência em engenharia especializada em dutos.</p>
+          </div>
+        </div>
+        
+        <!-- Seção 6: Diferenciais -->
+        <div class="section-widget" id="section6" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-handshake"></i> Diferenciais Competitivos</h2>
+          <div class="section-content">
+            <p><strong>Flexibilidade:</strong> Desenvolvimento de soluções personalizadas para problemas específicos</p>
+            <p><strong>Agilidade:</strong> Rápido processamento entre pedido e execução dos serviços</p>
+            <p><strong>Inovação Contínua:</strong> Investimento permanente em P&D e novas tecnologias</p>
+            <p><strong>Parcerias Estratégicas:</strong> Relação contínua com universidades e centros de pesquisa</p>
+          </div>
+        </div>
+        
+        <!-- Seção 7: Premiações -->
+        <div class="section-widget" id="section7" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-award"></i> Premiações e Reconhecimentos</h2>
+          <div class="section-content">
+            <p>A PipeWay recebeu diversos prêmios que atestam sua excelência e inovação, incluindo múltiplos Prêmios FINEP de Inovação Tecnológica, Prêmio Ernst & Young de Empreendedor do Ano, e reconhecimento pela ANPROTEC e Revista Você S.A.</p>
+          </div>
+        </div>
+        
+        <!-- Seção 8: Missão -->
+        <div class="section-widget" id="section8" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-crosshairs"></i> Nossa Missão</h2>
+          <div class="section-content">
+            <p>Ser referência em engenharia especializada, oferecendo soluções inovadoras e sustentáveis em projetos de tubulação e infraestrutura, superando as expectativas de nossos clientes através da excelência técnica e compromisso com prazos e orçamentos.</p>
+          </div>
+        </div>
+        
+        <!-- Seção 9: Visão -->
+        <div class="section-widget" id="section9" style="display: none;">
+          <h2 class="section-title"><i class="fas fa-eye"></i> Nossa Visão</h2>
+          <div class="section-content">
+            <p>Consolidar-nos como a empresa líder em engenharia de tubulações na região, reconhecida pela qualidade de nossos serviços, inovação tecnológica e responsabilidade socioambiental, expandindo nossas operações para novos mercados.</p>
+          </div>
+        </div>
+        
+        <!-- Navegação entre seções -->
+        <div class="section-navigation">
+          <button class="nav-button" id="prev-section"><i class="fas fa-chevron-left"></i> Anterior</button>
+          <span class="section-indicator" id="section-indicator">Seção 1 de 9</span>
+          <button class="nav-button" id="next-section">Próximo <i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="footer-buttons">
-    <!-- BOTÃO HOME ADICIONADO AQUI - PRIMEIRO DA LISTA -->
     <button onclick="window.location.href='home.html'">
       <i class="fas fa-home"></i> Home
     </button>
@@ -505,14 +523,14 @@
     <button onclick="window.open('http://10.10.10.5/pw', '_blank')">
       <i class="fas fa-key"></i> Minha PW
     </button>
-    </button>
-    <button onclick="window.open('contato.html', '_blank')">
+    
+    <button onclick="window.location.href='contato.html'">
       <i class="fas fa-envelope"></i> Fale Conosco
-    </button
+    </button>
   </div>
 
   <script>
-    // Contador de visitantes (incrementa a cada visita)
+    // Contador de visitantes
     document.addEventListener('DOMContentLoaded', function() {
       let count = localStorage.getItem('visitorCount');
       if (count === null) {
@@ -523,64 +541,56 @@
       localStorage.setItem('visitorCount', count);
       document.getElementById('visitor-count').textContent = count;
       
-      // Configurar o formulário
-      setupForm();
+      // Configurar navegação entre seções
+      setupSectionNavigation();
     });
 
-    // Configuração do formulário
-    function setupForm() {
-      const contactForm = document.getElementById('contactForm');
+    // Navegação entre seções
+    function setupSectionNavigation() {
+      const sections = document.querySelectorAll('.section-widget');
+      const prevButton = document.getElementById('prev-section');
+      const nextButton = document.getElementById('next-section');
+      const indicator = document.getElementById('section-indicator');
       
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Simular envio bem-sucedido (em produção, isso aconteceria naturalmente com FormSubmit)
-        showThankYouMessage();
-        
-        // Em ambiente de produção real, o FormSubmit cuidaria do envio
-        // e redirecionamento, mas estamos interceptando para mostrar nossa mensagem
+      let currentSection = 0;
+      
+      // Mostrar apenas a primeira seção inicialmente
+      sections.forEach((section, index) => {
+        if (index === 0) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
       });
-    }
-
-    // Mostrar mensagem de agradecimento
-    function showThankYouMessage() {
-      const modal = document.getElementById('thankYouModal');
-      modal.style.display = 'flex';
-    }
-
-    // Redirecionar para a página inicial
-    function redirectToHome() {
-      window.location.href = 'home.html';
-    }
-
-    // Adicionar funcionalidade aos botões do footer
-    document.querySelectorAll('.footer-buttons button').forEach(button => {
-      if (!button.onclick) {
-        button.addEventListener('click', function() {
-          const buttonText = this.textContent.trim();
-          let url = '';
-          
-          switch(buttonText) {
-            case 'Destaques':
-              url = 'https://exemplo.com/destaques';
-              break;
-            case 'Mais Buscados':
-              url = 'https://exemplo.com/mais-buscados';
-              break;
-            case 'Canal do Cliente':
-              url = 'https://exemplo.com/canal-cliente';
-              break;
-            case 'Ouvidoria':
-              url = 'https://exemplo.com/ouvidoria';
-              break;
-          }
-          
-          if (url) {
-            window.open(url, '_blank');
-          }
-        });
+      
+      // Atualizar indicador
+      function updateIndicator() {
+        indicator.textContent = `Seção ${currentSection + 1} de ${sections.length}`;
       }
-    });
+      
+      // Navegar para a próxima seção
+      nextButton.addEventListener('click', () => {
+        if (currentSection < sections.length - 1) {
+          sections[currentSection].style.display = 'none';
+          currentSection++;
+          sections[currentSection].style.display = 'block';
+          updateIndicator();
+        }
+      });
+      
+      // Navegar para a seção anterior
+      prevButton.addEventListener('click', () => {
+        if (currentSection > 0) {
+          sections[currentSection].style.display = 'none';
+          currentSection--;
+          sections[currentSection].style.display = 'block';
+          updateIndicator();
+        }
+      });
+      
+      // Inicializar indicador
+      updateIndicator();
+    }
   </script>
 
 </body>

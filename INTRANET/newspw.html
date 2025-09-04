@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notícias Brasil Verde</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #4caf50;
+      --hover-color: #66bb6a;
+      --text-color: #ffffff;
+      --bg-mask: rgba(0, 0, 0, 0.2);
+      --menu-bg: transparent;
+      --tab-bg: rgba(0, 0, 0, 0.85);
+      --tab-active-bg: rgba(76, 175, 80, 0.7);
+      --button-bg: rgba(255, 255, 255, 0.15);
+      --news-bg: rgba(0, 77, 0, 0.8);
+      --news-border: rgba(170, 255, 170, 0.5);
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      background: #fff;
+    }
+    
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 3;
+      flex-wrap: wrap;
+      background: transparent;
+      height: 70px;
+    }
+    
+    .branding {
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .branding h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6em;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+      color: #004d00;
+      line-height: 1;
+    }
+    
+    .branding .subtitle {
+      font-size: 1em;
+      margin-top: 5px;
+      opacity: 1;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+      color: #aaffaa;
+      font-weight: bold;
+      animation: pulsate 2s infinite alternate;
+    }
+    
+    @keyframes pulsate {
+      0% { text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50; }
+      100% { text-shadow: 0 0 15px #4caf50, 0 0 30px #4caf50, 0 0 40px #4caf50; }
+    }
+    
+    .top-tabs {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      justify-content: center;
+      margin: 0;
+      z-index: 100;
+      background: none;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .top-tab {
+      min-width: 140px;
+      padding: 12px 28px;
+      font-size: 1em;
+      white-space: nowrap;
+      text-align: center;
+      box-sizing: border-box;
+      background: var(--button-bg);
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 30px !important;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: none;
+      box-shadow: 2px -2px 5px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .top-tab span { z-index: 1; }
+    
+    .top-tab:hover {
+      transform: translateY(-5px);
+      box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.25);
+    }
+    
+    .top-tab.active {
+      background: rgba(255, 255, 255, 0.3);
+      color: #000;
+      box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.4);
+      transform: translateY(-3px);
+      margin-top: 8px;
+    }
+    
+    .top-tab {
+      font-weight: bold !important;
+      color: #000 !important;
+    }
+    
+    .top-tab:not(.active) {
+      font-weight: normal !important;
+    }
+    
+    .content-area {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 75%;
+      background: var(--tab-bg);
+      border-radius: 15px;
+      z-index: 5;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-header {
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(76, 175, 80, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .content-header h2 {
+      margin: 0;
+      color: #aaffaa;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 5px #4caf50;
+      font-size: 1.4em;
+    }
+    
+    .content-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      color: #ffffff;
+    }
+    
+    .news-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .news-bubble {
+      background: var(--news-bg);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid var(--news-border);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+    }
+    
+    .news-bubble:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border-color: #aaffaa;
+    }
+    
+    .news-bubble h3 {
+      color: #aaffaa;
+      margin-top: 0;
+      font-size: 1.2em;
+      text-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+      border-bottom: 1px solid rgba(170, 255, 170, 0.3);
+      padding-bottom: 10px;
+    }
+    
+    .news-bubble p {
+      color: #ffffff;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .news-bubble .read-more {
+      color: #aaffaa;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    
+    .news-bubble .read-more:hover {
+      text-decoration: underline;
+      text-shadow: 0 0 5px #4caf50;
+    }
+    
+    .news-date {
+      font-size: 0.8em;
+      color: #ccc;
+      margin-top: 10px;
+    }
+    
+    .most-read {
+      background: rgba(0, 77, 0, 0.9);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 30px;
+      border: 1px solid var(--news-border);
+    }
+    
+    .most-read h2 {
+      color: #aaffaa;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 5px #4caf50;
+      margin-top: 0;
+      border-bottom: 1px solid rgba(170, 255, 170, 0.3);
+      padding-bottom: 10px;
+    }
+    
+    .most-read ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .most-read li {
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(170, 255, 170, 0.3);
+      color: #fff;
+    }
+    
+    .most-read li:last-child {
+      border-bottom: none;
+    }
+    
+    .most-read li::before {
+      content: "•";
+      color: #aaffaa;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 4;
+      backdrop-filter: blur(5px);
+      display: none;
+    }
+    
+    footer {
+      background-color: #004d00;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 200;
+    }
+    
+    /* Modal de notícia expandida */
+    .news-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      max-height: 80%;
+      background: var(--tab-bg);
+      border-radius: 15px;
+      z-index: 101;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--primary-color);
+      overflow-y: auto;
+      padding: 20px;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--primary-color);
+      padding-bottom: 10px;
+    }
+    
+    .modal-header h2 {
+      color: #aaffaa;
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      color: #aaffaa;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    
+    .modal-content {
+      color: #fff;
+      line-height: 1.6;
+    }
+    
+    .modal-content img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 15px 0;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .news-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .top-tabs {
+        flex-wrap: wrap;
+        padding: 10px;
+      }
+      
+      .top-tab {
+        min-width: 120px;
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .content-area {
+        width: 90%;
+        height: 70%;
+      }
+      
+      .news-modal {
+        width: 85%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="branding">
+      <h1>Notícias Brasil Verde</h1>
+      <div class="subtitle">Seu portal de informação com responsabilidade</div>
+    </div>
+  </div>
+  
+  <div class="top-tabs">
+    <div class="top-tab active"><span>Brasil</span></div>
+    <div class="top-tab"><span>Esportes</span></div>
+    <div class="top-tab"><span>Entretenimento</span></div>
+    <div class="top-tab"><span>Política</span></div>
+    <div class="top-tab"><span>Record News</span></div>
+  </div>
+  
+  <div class="content-area">
+    <div class="content-header">
+      <h2>Notícias em destaque</h2>
+    </div>
+    <div class="content-body">
+      <div class="news-container">
+        <div class="news-bubble" data-news="1">
+          <h3>PCC no setor de combustíveis</h3>
+          <p>Facção criminosa é alvo de megaoperação em diversos estados. O esquema bilionário envolvia movimentações ilegais no setor de combustíveis...</p>
+          <a class="read-more">Leia mais →</a>
+          <div class="news-date">12 de Agosto, 2025</div>
+        </div>
+        
+        <div class="news-bubble" data-news="2">
+          <h3>Mulher perde 15,6 kg em 3 meses</h3>
+          <p>Com disciplina e acompanhamento médico, uma moradora de São Paulo compartilha sua jornada de transformação e saúde através de métodos inovadores...</p>
+          <a class="read-more">Leia mais →</a>
+          <div class="news-date">11 de Agosto, 2025</div>
+        </div>
+        
+        <div class="news-bubble" data-news="3">
+          <h3>Real Madrid mira jovem promessa brasileira</h3>
+          <p>Clube espanhol demonstra interesse em atacante de destaque no futebol nacional. Negociações podem começar ainda este mês com valores que surpreenderão...</p>
+          <a class="read-more">Leia mais →</a>
+          <div class="news-date">10 de Agosto, 2025</div>
+        </div>
+      </div>
+      
+      <div class="most-read">
+        <h2>Mais lidas</h2>
+        <ul>
+          <li>Homem é preso após roubar R$ 20 mil em perfumes</li>
+          <li>Cães abandonados são resgatados em casa no interior</li>
+          <li>Policial é atacado durante operação em favela</li>
+          <li>Novas regras para financiamento imobiliário em 2026</li>
+          <li>Previsão do tempo: frente fria chega ao sudeste</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal para notícias expandidas -->
+  <div class="news-modal" id="newsModal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Título da Notícia</h2>
+      <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-content" id="modalContent">
+      <!-- Conteúdo da notícia será inserido aqui via JavaScript -->
+    </div>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+  
+  <footer>
+    &copy; 2025 Notícias Brasil Verde. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const newsBubbles = document.querySelectorAll('.news-bubble');
+      const modal = document.getElementById('newsModal');
+      const overlay = document.getElementById('overlay');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalContent = document.getElementById('modalContent');
+      const closeModal = document.querySelector('.close-modal');
+      
+      // Conteúdo das notícias expandidas
+      const newsContent = {
+        1: {
+          title: "PCC no setor de combustíveis",
+          content: `
+            <p><strong>Uma megaoperação da Polícia Federal atingiu esquemas bilionários do PCC no setor de combustíveis em cinco estados.</strong></p>
+            <p>As investigações, que duraram mais de dois anos, revelaram que a facção criminosa Primeiro Comando da Capital (PCC) desviou mais de R$ 300 milhões através de fraudes em postos de gasolina e transportes de combustível.</p>
+            <p>Foram cumpridos 78 mandados de busca e apreensão nos estados de São Paulo, Paraná, Mato Grosso do Sul, Goiás e Minas Gerais. Segundo as autoridades, o esquema envolvia adulteração de combustíveis, sonegação fiscal e lavagem de dinheiro.</p>
+            <p>O ministro da Justiça, em coletiva de imprensa, afirmou que esta é uma das maiores operações já realizadas contra o crime organizado no setor de combustíveis e que as investigações continuam para identificar todos os envolvidos.</p>
+            <p>As penalidades para os investigados podem chegar a 30 anos de prisão, considerando os diversos crimes apurados.</p>
+          `
+        },
+        2: {
+          title: "Mulher perde 15,6 kg em 3 meses",
+          content: `
+            <p><strong>Ana Claudia, 34 anos, compartilha sua jornada de perda de peso que transformou não apenas seu corpo, mas sua qualidade de vida.</strong></p>
+            <p>Com acompanhamento de nutricionistas e educadores físicos, ela adotou uma rotina de exercícios e alimentação balanceada que resultou na perda de 15,6 kg em apenas três meses.</p>
+            <p>"Não foi fácil, mas valeu cada esforço. Hoje me sinto mais disposta, confiante e saudável", relata Ana, que sofria com problemas de autoestima e dores nas articulações devido ao excesso de peso.</p>
+            <p>O método utilizado combinou dieta low carb, exercícios funcionais e acompanhamento psicológico. Segundo o Dr. Marcelo Torres, endocrinologista que acompanhou o caso, "o sucesso deve-se à combinação de fatores e à disciplina da paciente".</p>
+            <p>Ana agora inspira outras pessoas através de suas redes sociais, onde compartilha dicas e seu processo de transformação.</p>
+          `
+        },
+        3: {
+          title: "Real Madrid mira jovem promessa brasileira",
+          content: `
+            <p><strong>O Real Madrid demonstrou interesse oficial em Gabriel Pereira, atacante de 19 anos que vem se destacando no Campeonato Brasileiro.</strong></p>
+            <p>Segundo fontes próximas ao clube espanhol, os representantes do Real Madrid já estiveram no Brasil para observar o jogador em ação e devem iniciar negociações com seu clube ainda este mês.</p>
+            <p>Gabriel Pereira, que atua pelo clube paulista, vem chamando a atenção de olheiros europeus desde o início da temporada, com 12 gols e 8 assistências em 25 jogos.</p>
+            <p>O valor da transação pode ultrapassar os €35 milhões, tornando-se uma das maiores vendas do futebol brasileiro para o exterior nesta janela de transferências.</p>
+            <p>O jogador, quando questionado sobre o interesse do clube madrilenho, preferiu não comentar diretamente: "Meu foco está no meu clube atual e em ajudar minha equipe a conquistar títulos. O futuro a Deus pertence".</p>
+          `
+        }
+      };
+      
+      // Abrir modal ao clicar em uma notícia
+      newsBubbles.forEach(bubble => {
+        bubble.addEventListener('click', function() {
+          const newsId = this.getAttribute('data-news');
+          const news = newsContent[newsId];
+          
+          if (news) {
+            modalTitle.textContent = news.title;
+            modalContent.innerHTML = news.content;
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
+      
+      // Fechar modal
+      closeModal.addEventListener('click', closeNewsModal);
+      overlay.addEventListener('click', closeNewsModal);
+      
+      function closeNewsModal() {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Fechar modal com a tecla ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeNewsModal();
+        }
+      });
+      
+      // Alternar abas
+      const tabs = document.querySelectorAll('.top-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          tabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          // Aqui viria a lógica para carregar o conteúdo específico da aba
+        });
+      });
+    });
+  </script>
+</body>
+</html>

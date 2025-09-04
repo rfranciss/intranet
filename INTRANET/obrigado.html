@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Obrigado!</title>
+  <style>
+    body {
+      background: #222;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Tahoma, sans-serif;
+    }
+    .agradecimento {
+      background: rgba(0,0,0,0.85);
+      border-radius: 15px;
+      padding: 40px 30px;
+      box-shadow: 0 0 25px #4caf50;
+      text-align: center;
+      border: 2px solid #4caf50;
+      max-width: 400px;
+    }
+    h1 {
+      color: #aaffaa;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 30px;
+    }
+    .close-btn {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .close-btn:hover {
+      background: #66bb6a;
+    }
+  </style>
+</head>
+<body>
+  <div class="agradecimento">
+    <h1>Obrigado!</h1>
+    <p>Seu inventário foi registrado com sucesso.<br>Esta página será fechada automaticamente em 10 segundos ou clique no botão abaixo.</p>
+    <button class="close-btn" onclick="window.close()">Fechar</button>
+  </div>
+  <script>
+    setTimeout(function() {
+      window.close();
+    }, 10000);
+  </script>
+</body>
+</html>
